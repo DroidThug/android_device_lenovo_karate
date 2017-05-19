@@ -266,3 +266,12 @@ persist.radio.sap_silent_pin=1
 
 # Enable MBN OTA
 persist.radio.start_ota_daemon=1
+
+ro.frp.pst=/dev/block/bootdevice/by-name/config
+af.fast_track_multiplier=1
+audio_hal.period_size=192
+persist.radio.multisim.config=single
+persist.radio.sap_silent_pin=1
+persist.radio.primarycard=true
+persist.sys.panicbutton=true
+persist.sys.vrstate=true
