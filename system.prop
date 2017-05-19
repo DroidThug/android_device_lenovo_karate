@@ -2,7 +2,6 @@
 # system.prop for karate
 #
 
-ril.subscription.types=NV,RUIM
 #rild.libpath=/system/lib/libreference-ril.so
 rild.libpath=/system/vendor/lib/libril-qc-qmi-1.so
 rild.libargs=-d /dev/smd0
@@ -18,7 +17,11 @@ persist.rild.nitz_short_ons_3=
 ril.subscription.types=NV,RUIM
 DEVICE_PROVISIONED=1
 # Start in cdma mode
-ro.telephony.default_network=5
+ro.telephony.default_network=9,1
+#
+# Set network mode to (T/L/G/W/1X/EVDO, T/G/W/L) for 7+5 mode device on DSDS mode
+#
+#ro.telephony.default_network=22,20
 
 debug.sf.hw=1
 debug.egl.hw=1
@@ -48,7 +51,10 @@ mm.enable.smoothstreaming=true
 mmp.enable.3g2=true
 media.aac_51_output_enabled=true
 #codecs:(PARSER_)AAC AC3 AMR_NB AMR_WB ASF AVI DTS FLV 3GP 3G2 MKV MP2PS MP2TS MP3 OGG QCP WAV FLAC AIFF APE
-mm.enable.qcom_parser=1048575
+#mm.enable.qcom_parser=1048575
+#mm.enable.qcom_parser=1047551
+#enalbe divx divxHD
+mm.enable.qcom_parser=4193279
 
 # system prop for UBWC
 video.disable.ubwc=1
@@ -94,7 +100,7 @@ persist.timed.enable=true
 #ro.opengles.version=196609
 
 # System property for cabl
-ro.qualcomm.cabl=2
+ro.qualcomm.cabl=0
 
 #
 # System props for telephony
@@ -114,10 +120,10 @@ persist.fuse_sdcard=true
 #
 ro.qc.sdk.audio.ssr=false
 ##fluencetype can be "fluence" or "fluencepro" or "none"
-ro.qc.sdk.audio.fluencetype=none
+ro.qc.sdk.audio.fluencetype=fluence
 persist.audio.fluence.voicecall=true
 persist.audio.fluence.voicerec=false
-persist.audio.fluence.speaker=true
+persist.audio.fluence.speaker=false
 #Set for msm8937
 tunnel.audio.encode = false
 #Buffer size in kbytes for compress offload playback
@@ -138,7 +144,7 @@ audio.offload.track.enable=true
 audio.deep_buffer.media=true
 
 #enable voice path for PCM VoIP by default
-use.voice.path.for.pcm.voip=true
+use.voice.path.for.pcm.voip=false
 
 #enable downsampling for multi-channel content > 48Khz
 audio.playback.mch.downsample=true
@@ -188,6 +194,10 @@ persist.qfp=false
 
 #property to enable DS2 dap
 audio.dolby.ds2.enabled=true
+dmid=1125064752
+audio.ds1.metainfo.key=273
+audio.dolby.ds2.hardbypass=true
+
 #min/max cpu in core control
 ro.core_ctl_min_cpu=2
 ro.core_ctl_max_cpu=4
@@ -205,10 +215,12 @@ ro.hwui.text_small_cache_height=1024
 ro.hwui.text_large_cache_width=2048
 ro.hwui.text_large_cache_height=2048
 
+# BEGIN Lenovo lubm1 2016-08-31 KARATEROW-5153 SIM contacts disappear since IdeaFriend is killed by LMK
 #Enable B service adj transition by default
-ro.sys.fw.bservice_enable=true
-ro.sys.fw.bservice_limit=5
-ro.sys.fw.bservice_age=5000
+#ro.sys.fw.bservice_enable=true
+#ro.sys.fw.bservice_limit=5
+#ro.sys.fw.bservice_age=5000
+# END KARATEROW-5153
 
 #Trim properties
 ro.sys.fw.use_trim_settings=true
@@ -241,3 +253,16 @@ camera.hal1.packagelist=com.skype.raider,com.google.android.talk
 #properties for limiting preview size in camera
 camera.display.umax=1920x1080
 camera.display.lmax=1280x720
+
+#Enable always send PLMN in rsp of QMI_NAS_GET_PLMN_NAME
+persist.radio.always_send_plmn=1
+
+#jinmy1: enable plmn search with rat
+#jinmy1: set yo null for moto ui
+persist.radio.rat_on=
+
+# Enable silent PIN1
+persist.radio.sap_silent_pin=1
+
+# Enable MBN OTA
+persist.radio.start_ota_daemon=1
