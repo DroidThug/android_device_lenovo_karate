@@ -1,0 +1,100 @@
+#Lenovo common rc for 8937
+
+on init
+    #Wingtech Factory Hardwareinfo
+    chmod 0664 /dev/hardwareinfo
+    chown system system /dev/hardwareinfo
+	#guoqiang3 FactoryMode access start
+    chmod 0664 /sys/class/leds/led:torch_0/brightness
+    chown system system /sys/class/leds/led:torch_0/brightness 
+    chmod 0664 /sys/class/leds/led:torch_1/brightness
+    chown system system /sys/class/leds/led:torch_1/brightness 
+    chmod 0664 /sys/class/leds/led:switch/brightness
+    chown system system /sys/class/leds/led:switch/brightness 
+	#guoqiang3 FactoryMode access end
+
+
+on post-fs-data
+    #for EngineerTest.apk wlan rf test. zhanghl4
+    mkdir /data/misc/wifitest 0770 wifi wifi
+    #for adbd pull /data/anr/file
+    mkdir /data/anr 0775 system system
+    chown system system /data/anr
+    chmod 0775 /data/anr
+    restorecon_recursive /data/anr
+# Change ownership for Dynamic-CABC feature
+    chown system system /sys/class/graphics/fb0/cabc_mode
+# Change ownership for for HBM feature
+    chown system system /sys/class/graphics/fb0/hbm
+# Change ownership for for ACL feature
+    chown system system /sys/class/graphics/fb0/acl_mode
+# Change ownership for for seed feature
+    chown system system /sys/class/graphics/fb0/color_profile
+#cuijy2 for wifi_goldenbin_check
+service wcn_nvbin_check /system/bin/sh /system/etc/wifi_goldenbin_check.sh
+    class core
+    user root
+    group root
+    oneshot 
+
+#for EngineerTest.apk bt rf test
+service bt_rf_test /system/bin/sh /system/etc/bt_rf_test.sh
+    class late_start
+    user root
+    group bluetooth
+    disabled
+    oneshot
+
+#for EngineerTest.apk wlan rf test. zhanghl4
+service wlanmode_insmod /system/bin/insmod /system/lib/modules/wlan.ko con_mode=5
+    class main
+    disabled
+    oneshot
+
+service wlanmode_rmmod /system/bin/rmmod wlan
+    class main
+    disabled
+    oneshot
+
+service wlanmode_open /system/bin/ifconfig wlan0 up
+    class main
+    disabled
+    oneshot
+
+service wlanmode_close /system/bin/ifconfig wlan0 down
+    class main
+    disabled
+    oneshot
+
+service wlan_report /system/bin/sh /data/misc/wifitest/wlantest_report.sh
+    class late_start
+    user root
+    disabled
+    oneshot
+
+on property:wlan.test.load=1
+    start wlanmode_insmod
+
+on property:wlan.test.load=0
+    start wlanmode_rmmod
+
+on property:wlan.test.open=1
+    start wlanmode_open
+
+on property:wlan.test.open=0
+    start wlanmode_close
+
+on property:wlan.test.report=1
+    start wlan_report
+
+
+#for factory properties
+service wcg_mac_tool /system/bin/wcg_mac_tool
+   class late_start
+   user root
+   group system bluetooth radio
+   disabled
+   oneshot
+
+on property:sys.boot_completed=1
+    start wcg_mac_tool
