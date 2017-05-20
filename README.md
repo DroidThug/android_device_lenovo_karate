@@ -19,7 +19,7 @@ Battery | Non-removable Li-Po 4000 mAh battery
 Display | 1080x1920 pixels, 5.0 inches (~441 ppi pixel density)
 Dimensions | 141.9 x 70.3 x 9.3 mm
 Camera  | Primary: 13 MP PDAF, LED-Flash, FHD (Sony IMX219/Samsung S5K3P3) 
-Camera (front)	| 8 MP, Fixed-focus, FHD
+Camera (front)	| 8 MP, Fixed-focus, FHD (Omnivision 5695)
 Fingerprint | Fingerprint Cards (FPC) 1020
 Other Sensors | Gravity, Proximity, Light, Vibrator, Gyroscope, Accelerometer
 
