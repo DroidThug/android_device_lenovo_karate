@@ -24,12 +24,12 @@ $(call inherit-product, device/lenovo/karate/device.mk)
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
 # Set those variables here to overwrite the inherited values.
-BOARD_VENDOR := lenovo
+BOARD_VENDOR := Lenovo
 PRODUCT_DEVICE := karate
 PRODUCT_NAME := lineage_karate
-PRODUCT_BRAND := lenovo
+PRODUCT_BRAND := Lenovo
 PRODUCT_MODEL := Lenovo K33
-PRODUCT_MANUFACTURER := lenovo
+PRODUCT_MANUFACTURER := LENOVO
 
 # Overlays (inherit after vendor/cm to ensure we override it)
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay

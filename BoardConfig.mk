@@ -17,7 +17,7 @@
 TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 
 # Assert
-TARGET_OTA_ASSERT_DEVICE := karate, K33
+TARGET_OTA_ASSERT_DEVICE := karate, K33, LenovoK33a48_ROW
 
 LOCAL_PATH := device/lenovo/karate
 
